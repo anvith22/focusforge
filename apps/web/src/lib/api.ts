@@ -23,16 +23,31 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     ...options,
   });
 
+  const contentType = res.headers.get('content-type') || '';
+
   if (!res.ok) {
     let errorMessage = `API request failed with status ${res.status}`;
     try {
-      const errorJson = await res.json();
-      errorMessage = errorJson.error || errorJson.message || errorMessage;
+      if (contentType.includes('application/json')) {
+        const errorJson = await res.json();
+        errorMessage = errorJson.error || errorJson.message || errorMessage;
+      } else {
+        const text = await res.text();
+        if (text) errorMessage = text;
+      }
     } catch {
-      const text = await res.text();
-      if (text) errorMessage = text;
+      // fallback
     }
     throw new Error(errorMessage);
+  }
+
+  if (!contentType.includes('application/json')) {
+    const text = await res.text();
+    if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+      throw new Error(
+        `API not connected: Frontend received HTML instead of JSON from ${url}. Ensure VITE_API_URL is configured to your public focusforge-api URL.`
+      );
+    }
   }
 
   return res.json();
