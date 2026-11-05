@@ -12,7 +12,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install && npm run build:api && npm run migrate
+    buildCommand: npm install --include=dev && npm run build:api && npm run migrate
     startCommand: npm run start -w @focusforge/api
     envVars:
       - key: NODE_ENV
@@ -32,7 +32,7 @@ services:
   - type: web
     name: focusforge-web
     runtime: static
-    buildCommand: npm install && npm run build:web
+    buildCommand: npm install --include=dev && npm run build:web
     staticPublishPath: apps/web/dist
     envVars:
       - key: VITE_API_URL
