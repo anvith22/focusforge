@@ -1,0 +1,24 @@
+{
+  "name": "focusforge",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"api,web\" -c \"blue,green\" \"npm run dev -w @focusforge/api\" \"npm run dev -w @focusforge/web\"",
+    "dev:api": "npm run dev -w @focusforge/api",
+    "dev:web": "npm run dev -w @focusforge/web",
+    "build": "npm run build --workspaces",
+    "build:api": "npm run build -w @focusforge/api",
+    "build:web": "npm run build -w @focusforge/web",
+    "test": "npm run test --workspaces",
+    "test:api": "npm run test -w @focusforge/api",
+    "test:web": "npm run test -w @focusforge/web",
+    "migrate": "npm run migrate -w @focusforge/api",
+    "seed": "npm run seed -w @focusforge/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
