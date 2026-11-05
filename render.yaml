@@ -32,7 +32,6 @@ services:
   - type: web
     name: focusforge-web
     runtime: static
-    region: oregon
     buildCommand: npm install && npm run build:web
     staticPublishPath: apps/web/dist
     envVars:
