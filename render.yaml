@@ -3,6 +3,7 @@ databases:
     databaseName: focusforge
     user: focusforge
     plan: free
+    region: oregon
 
 services:
   # 1. Backend REST API (Express + Node.js)
@@ -10,6 +11,7 @@ services:
     name: focusforge-api
     runtime: node
     plan: free
+    region: oregon
     buildCommand: npm install && npm run build:api && npm run migrate
     startCommand: npm run start -w @focusforge/api
     envVars:
@@ -22,11 +24,7 @@ services:
           name: focusforge-postgres
           property: connectionString
       - key: CLIENT_ORIGIN
-        fromService:
-          type: web
-          name: focusforge-web
-          property: host
-          urlPrefix: https://
+        value: "*"
       - key: APP_TIMEZONE
         value: Asia/Kolkata
 
@@ -34,6 +32,7 @@ services:
   - type: web
     name: focusforge-web
     runtime: static
+    region: oregon
     buildCommand: npm install && npm run build:web
     staticPublishPath: apps/web/dist
     envVars:
