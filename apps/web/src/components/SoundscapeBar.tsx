@@ -25,6 +25,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 interface SoundscapeBarProps {
   className?: string;
   compact?: boolean;
+  placement?: 'bottom' | 'top';
 }
 
 const EqualizerBars: React.FC = () => (
@@ -38,6 +39,7 @@ const EqualizerBars: React.FC = () => (
 export const SoundscapeBar: React.FC<SoundscapeBarProps> = ({
   className = '',
   compact = false,
+  placement = 'bottom',
 }) => {
   const [currentMode, setCurrentMode] = useState<SoundMode>(soundEngine.getMode());
   const [isPlaying, setIsPlaying] = useState<boolean>(soundEngine.isPlaying());
@@ -176,7 +178,11 @@ export const SoundscapeBar: React.FC<SoundscapeBarProps> = ({
 
       {/* Multi-Track Ambient Mixer Dropdown Modal */}
       {isOpen && (
-        <div className="absolute right-0 bottom-full mb-3 w-84 sm:w-96 bg-slate-950/95 backdrop-blur-xl border border-slate-800/90 rounded-2xl shadow-2xl p-5 z-50 text-slate-200 animate-in fade-in zoom-in-95 duration-150">
+        <div
+          className={`absolute right-0 ${
+            placement === 'top' ? 'bottom-full mb-3' : 'top-full mt-3'
+          } w-84 sm:w-96 bg-slate-950/95 backdrop-blur-xl border border-slate-800/90 rounded-2xl shadow-2xl p-5 z-50 text-slate-200 animate-in fade-in zoom-in-95 duration-150`}
+        >
           <div className="flex items-center justify-between pb-3 border-b border-slate-800/80 mb-4">
             <div className="flex items-center gap-2">
               <Sliders className="w-4 h-4 text-blue-400" />

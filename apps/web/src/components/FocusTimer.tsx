@@ -103,7 +103,7 @@ export const FocusTimer: React.FC<FocusTimerProps> = ({
 
   return (
     <>
-      <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-6 relative overflow-hidden">
+      <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-6 relative z-20">
         {/* Top Header */}
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
